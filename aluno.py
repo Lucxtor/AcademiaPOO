@@ -8,5 +8,9 @@ class Aluno(Pessoa):
         self.altura = altura
         self.objetivo = objetivo
 
-    def editar(self):
+    def editarAluno(self):
         pass
+    
+    def removerAluno(self):
+        
+    def imprimir(self): #Polimorfismo

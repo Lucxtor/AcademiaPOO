@@ -4,5 +4,4 @@ class Pessoa:
         self.idade = idade
         self.CPF = CPF
 
-    def excluir(self):
-        pass
+    def imprimir(self): #Polimorfismo

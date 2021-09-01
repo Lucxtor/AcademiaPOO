@@ -3,3 +3,9 @@ class Aparelho:
         self.nome = nome
         self.restricaoIdade = restricaoIdade
         self.nPessoasTurno = nPessoasTurno
+        
+    def removerAparelho(self):
+        
+    def editarAparelho(self):
+        
+    

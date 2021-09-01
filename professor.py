@@ -7,5 +7,7 @@ class Professor(Pessoa):
         self.diasTrabalho = diasTrabalho
         self.turnosTrabalho = turnosTrabalho
 
-    def editar(self):
+    def editarProfessor(self):
         pass
+    
+    def removerProfessor(self):

@@ -1,13 +1,12 @@
 from pessoa import Pessoa
 
 class Professor(Pessoa):
-    def __init__(self, nome, idade, CPF, numeroCarteira, diasTrabalho, turnosTrabalho):
-        Pessoa.__init__(self, nome, idade, CPF)
+    def __init__(self, nome, idade, CPF, horario, numeroCarteira):
+        Pessoa.__init__(self, nome, idade, CPF, horario)
         self.numeroCarteira = numeroCarteira
-        self.diasTrabalho = diasTrabalho
-        self.turnosTrabalho = turnosTrabalho
 
     def editarProfessor(self):
         pass
     
     def removerProfessor(self):
+        pass

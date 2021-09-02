@@ -5,7 +5,7 @@ class Aparelho:
         self.nPessoasTurno = nPessoasTurno
         
     def removerAparelho(self):
+        pass
         
     def editarAparelho(self):
-        
-    
+        pass

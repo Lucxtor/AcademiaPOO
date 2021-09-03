@@ -1,11 +1,14 @@
 class Aparelho:
-    def __init__(self, nome, restricaoIdade, nPessoasTurno):
-        self.nome = nome
+    def __init__(self, nomeAparelho, restricaoIdade):
+        self.nomeAparelho = nomeAparelho
         self.restricaoIdade = restricaoIdade
-        self.nPessoasTurno = nPessoasTurno
         
     def removerAparelho(self):
         pass
         
     def editarAparelho(self):
         pass
+
+    def cadastrarAparelho(self,nomeAparelho, restricaoIdade):
+        print('\nAparelho criado com sucesso!')
+        return True

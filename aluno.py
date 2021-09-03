@@ -6,6 +6,7 @@ class Aluno(Pessoa):
         self.peso = peso
         self.altura = altura
         self.objetivo = objetivo
+        
 
     def editarAluno(self):
         pass
@@ -14,4 +15,11 @@ class Aluno(Pessoa):
         pass
         
     def imprimir(self): #Polimorfismo
-        pass
+        print(f'''\nNome:{self.nome}\nIdade:{self.idade}\nCPF: {self.CPF}\nPeso: {self.peso}\nAltura: {self.altura}\nObjetivo: {self.objetivo}''')
+        print('         M T N')
+        for i in range (6):
+            if i > 0:
+                print('')
+            print(self.diaSemana[i], end='  ')
+            for j in range(3):
+                print(horário[i][j], end=' ')

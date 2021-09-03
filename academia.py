@@ -5,7 +5,7 @@ from aparelho import Aparelho
 class Academia:
  
     
-    def __init__(self, nome, capacidadeMaximaLocal, aparelhos=[], professores=[], alunos=[]):
+    def __init__(self, nome, capacidadeMaximaLocal, aparelhos=0, professores=[], alunos=[]):
         self.nome = nome
         self.capacidadeMaximaLocal = capacidadeMaximaLocal
         self.aparelhos = aparelhos
@@ -13,7 +13,12 @@ class Academia:
         self.alunos = alunos
         self.listaAlunos = []
         self.listaProfessores = []
-        self.capacidadeMaximaDiaTurno = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+        self.listaPessoas = []
+        self.alunosDentro = 0
+        self.professoresDentro = 0
+        self.cadastroAluno = True
+        self.qtdeProfsDiaTurno = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
+        self.qtdeAlunosDiaTurno = [[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]]
         # auxCapacidadeMaximaProfessores = 0
         # auxCapacidadeMaximaAparelhos = 0
         # for i in aparelhos:
@@ -29,29 +34,66 @@ class Academia:
         #             auxCapacidadeMaximaAparelhos += int(a.nPessoasTurno)
 
     def entrar(self, nome):
-        pass
-        #Verificar se é aluno ou professor, fazendo uma busca nas listas de aluno e professor
-            #Se estiver, verificar se alunosDentro+1 é <= do que professoresDentro*8 e se alunosDentro+1 < aparelhos 
-                #Se for, adicionar +1 em alunos dentro e imprimir 'Entrada realizada com sucesso'
-                #Se não for, imprimir 'Academia com lotação máxima. Entrada negada!'
-            #Se não estiver, imprimir 'Aluno não cadastrado'
-            
-            #Verificar se o nome do professor está na lista de professores
-                #Se estiver, +1 em professoresDentro
-                #Se não, imprimir mensagem 'Professor não cadastrado'
+        for i in range(len(listaPessoas)):
+            if self.nome == listaPessoas[i][Nome]:
+                if listaPessoas[i]['Tipo pessoa'] == 'Aluno':
+                    if self.alunosDentro + 1 <= self.professoresDentro * 8 and self.alunosDentro + 1 <= aparelhos:
+                        self.alunosDentro += 1
+                        print('\nEntrada realizada com sucesso!')
+                    else:
+                        print('\nAcademia com lotação máxima. Entrada negada. Tente novamente mais tarde')
+    
+                elif listaPessoas[i]['Tipo pessoa'] == 'Professor':
+                    professoresDentro += 1
+                    print('\nEntrada realizada com sucesso!')
+    
+    def sair(self, nome):
+        for i in range(len(listaPessoas)):
+            if self.nome == listaPessoas[i][Nome]:
+                if listaPessoas[i]['Tipo pessoa'] == 'Aluno':
+                    self.alunosDentro -= 1
+                    print('\nSaída realizada com sucesso!')
+               
+                elif listaPessoas[i]['Tipo pessoa'] == 'Professor':
+                    professoresDentro -= 1
+                    print('\nSaída realizada com sucesso!')
+    
 
+    
+    
     def cadastrarAluno(self, aluno):
-        pass
-        #Verificar se nos dias e turnos desejados, alunosCadastrados+1 <= professoresCadastrados*8 e se alunosCadastrados+1 <= aparelhos
-            #Se for, conclui o cadastro dos alunos e imprime 'Aluno cadastrado com sucesso'
-            #Se não for, imprime 'Impossível cadastrar nesses dias e horários. Tente novamente'
+        for i in range (6):
+            for j in range(3):
+                if self.horarios[i][j]+self.qtdeAlunosDiaTurno[i][j] > self.qtdeProfDiaTurno[i][j]*8 or self.horarios[i][j]+self.qtdeAlunosDiaTurno[i][j] > self.aparelhos:
+                    cadastroAluno = False
+                    
+        if cadastroAluno == True:
+            for i in range (6):
+                for j in range(3):
+                    self.qtdeAlunosDiaTurno[i][j] = self.horarios[i][j] + self.qtdeAlunosDiaTurno[i][j]
+            dicionarioAluno = {'Nome':self.nome,'CPF':self.cpf,'Idade':self.idade,'Dias Semana':self.diaSemana,'Turno':turno,'Peso':self.peso,'Altura':self.altura,'Objetivo':self.objetivo, 'Tipo pessoa':'Aluno'}
+            listaAlunos.append = dicionarioAluno
+            listaPessoas.append = dicionarioAluno
+            print('\nAluno cadastrado com sucesso')
+            
+        else: 
+            print('Impossível cadastrar nesses dias e horários. Tente novamente')
+                
+
+        
         #Verificar se tem restrição de aparelhos
             #Se tiver, imprimir quais são os aparelhos disponíveis
             #Se não, imprimir o nome de todos os apelhos
 
     def cadastrarProfessor(self, professor):
-        pass
-
-    def cadastrarAparelho(self, nome, restricaoIdade, nPessoasTurno):
-        self.aparelhos.append(Aparelho.__init__(nome, restricaoIdade, nPessoasTurno))
-    
+        dicionarioProfessor = {'Nome':self.nome,'CPF':self.cpf,'Idade':self.idade,'Dias Semana':self.diaSemana,'Turno':turno,'Peso':self.peso,'Altura':self.altura,'Objetivo':self.objetivo, 'Tipo pessoa':'Professor'}
+        capacidadeMaximaDiaTurno += self.horario
+        listaProfessores.append = dicionarioAluno
+        listaPessoas.append = dicionarioProfessor
+        for i in range(6):
+            for j in range (3):
+                self.capacidadeMaximaDiaTurno[i][j] = self.capacidadeMaximaDiaTurno[i][j] + self.horario[i][j]
+        print('\nProfessor cadastrado com sucesso!')
+        
+    def somaAparelho(self):
+        self.aparelhos += 1

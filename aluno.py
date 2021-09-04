@@ -15,7 +15,7 @@ class Aluno(Pessoa):
         pass
         
     def imprimir(self): #Polimorfismo
-        print(f'''\nNome: {self.nome}\nIdade: {self.idade}\nCPF: {self.CPF}\nPeso: {self.peso}\nAltura: {self.altura}\nObjetivo: {self.objetivo}''')
+        print(f'''\nNome: {self.nome}\nIdade: {self.idade}\nCPF: {self.CPF}\nPeso: {self.peso}\nAltura: {self.altura}\nObjetivo: {self.objetivo}\n''')
         print('         M T N')
         for i in range(6):
             if i > 0:

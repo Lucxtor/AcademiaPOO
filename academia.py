@@ -18,39 +18,39 @@ class Academia:
         self.qtdeProfsDiaTurno = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.qtdeAlunosDiaTurno = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
-    def entrar(self, nome):
-        if len(self.listaPessoas) == 0:
-            print("Primeiramente faça seu cadastro!")
-        for i in range(len(self.listaPessoas)):
-            if nome == self.listaPessoas[i]['Nome']:
-                if self.listaPessoas[i]['tipoPessoa'] == 'Aluno':
-                    if self.alunosDentro + 1 <= self.professoresDentro * 8:
-                        self.alunosDentro += 1
-                        print('\nEntrada realizada com sucesso!')
-                        print(f'Bem-vindo {nome}!')
-                    else:
-                        print('\nAcademia com lotação máxima. Entrada negada. Tente novamente mais tarde')
-                    break
-                else:
-                    self.professoresDentro += 1
-                    print('\nEntrada realizada com sucesso!')
-                    print(f'Bem-vindo prof. {nome}!')
-                    break
-            elif i + 1 == range(len(self.listaPessoas)):
-                print("\nCadastro não encontrado, verifique o nome inserido ou então realize seu cadastro: ")
+    def entrar(self, nome):                                                                                  #Método de entrada na academia, recebendo um nome digitado como parâmetro
+        if len(self.listaPessoas) == 0:                                                                      #Caso não tenha ninguém cadastrado, não entra no for 
+            print("Primeiramente faça seu cadastro!")                                                        #Imprime mensagem "Primeiramente faça seu cadastro!"
+        for i in range(len(self.listaPessoas)):                                                              #Repete(o número de elementos da listaPessoas)vezes o código da linha 25-40
+            if nome == self.listaPessoas[i]['Nome']:                                                         #Verifica se o nome digitado é igual ao nome da posição i da listaPessoas
+                if self.listaPessoas[i]['tipoPessoa'] == 'Aluno':                                            #Verifica se tipo de pessoa relacionado ao nome da posição i da listaPessoas é aluno
+                    if self.alunosDentro + 1 <= self.professoresDentro * 8:                                  #Verifica se o número de alunos dentro + 1 é ≤ ao número de profs dentro                           
+                        self.alunosDentro += 1                                                               #Se passar pela condição, adiciona 1 aos alunos dentro
+                        print('\nEntrada realizada com sucesso!')                                            #Imprime mensagem "Entrada realizada com sucesso!"
+                        print(f'Bem-vindo {nome}!')                                                          #Imprime mensagem "Bem-vindo {nome}!"
+                    else:                                                                                    #Caso o número de alunos dentro + 1 seja > profs dentro * 8
+                        print('\nAcademia com lotação máxima. Entrada negada. Tente novamente mais tarde')   #Imprime a mensagem "Academia com lotação máxima. Entrada negada. Tente novamente mais tarde"
+                    break                                                                                    #'Quebra' o laço
+                else:                                                                                        #Caso o tipo de pessoa que quer entrar não seja aluno, então é professor
+                    self.professoresDentro += 1                                                              #Adiciona 1 aos professores dentro
+                    print('\nEntrada realizada com sucesso!')                                                #Imprime mensagem "Entrada realizada com sucesso!"
+                    print(f'Bem-vindo prof. {nome}!')                                                        #Imprime mensagem "Bem-vindo {nome}!"
+                    break                                                                                    #'Quebra' o laço
+            elif i+1 == (len(self.listaPessoas)):                                                            #Caso o nome não tenha sido encontrado e a lista já estiver na última posição
+                print("\nCadastro não encontrado, verifique o nome inserido ou então realize seu cadastro: ")#Imprime a mensagem "Cadastro não encontrado, verifique o nome inserido ou então realize seu cadastro:" 
 
 
-    def sair(self, nome):
-        for i in range(len(self.listaPessoas)):
-            if nome == self.listaPessoas[i]['Nome']:
-                if self.listaPessoas[i]['tipoPessoa'] == 'Aluno':
-                    self.alunosDentro -= 1
-                    print('\nSaída realizada com sucesso!')
-                    print(f'Bom descanso {nome}!')
-                else:
-                    self.professoresDentro -= 1
-                    print('\nSaída realizada com sucesso!')
-                    print(f'Bom descanso prof. {nome}!')
+    def sair(self, nome):                                                                                    #Método de saída da academia, recebendo um nome digitado como parâmetro
+        for i in range(len(self.listaPessoas)):                                                              #Repete(o número de elementos da listaPessoas)vezes o código da linha 45-53
+            if nome == self.listaPessoas[i]['Nome']:                                                         #Verifica se o nome digitado é igual ao nome da posição i da listaPessoas
+                if self.listaPessoas[i]['tipoPessoa'] == 'Aluno':                                            #Verifica se tipo de pessoa relacionado ao nome da posição i da listaPessoas é aluno
+                    self.alunosDentro -= 1                                                                   #Decrementa 1 da variável alunosDentro
+                    print('\nSaída realizada com sucesso!')                                                  #Imprime mensagem "Saída realizada com sucesso!"
+                    print(f'Bom descanso {nome}!')                                                           #Imprime mensagem "Bom descanso {nome}!"
+                else:                                                                                        #Caso o tipo de pessoa que quer entrar não seja aluno, então é professor
+                    self.professoresDentro -= 1                                                              #Decrementa 1 da variável professoresDentro
+                    print('\nSaída realizada com sucesso!')                                                  #Imprime mensagem "Saída realizada com sucesso!"
+                    print(f'Bom descanso prof. {nome}!')                                                     #Imprime mensagem "Bom descanso {nome}!"
 
     def cadastrarAluno(self, nome, idade, CPF, horario, peso, altura, objetivo):
         maxAparelhos = 0

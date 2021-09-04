@@ -4,7 +4,7 @@ class Pessoa:
         self.idade = idade
         self.CPF = CPF
         self.horario = horario
-        self.diaSemana = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado']
+        self.diaSemana = ['Segunda','Terça  ','Quarta ','Quinta ','Sexta  ','Sábado ']
 
     def imprimir(self): #Polimorfismo
         print(f'Nome: {self.nome}\nIdade: {self.idade}\nCPF: {self.CPF}\nHorário:')
@@ -14,4 +14,4 @@ class Pessoa:
                 print('')
             print(self.diaSemana[i], end='  ')
             for j in range(3):
-                print(self.horário[i][j], end=' ')
+                print(self.horario[i][j], end=' ')

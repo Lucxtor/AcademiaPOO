@@ -8,7 +8,3 @@ class Aparelho:
         
     def editarAparelho(self):
         pass
-
-    def cadastrarAparelho(self,nomeAparelho, restricaoIdade):
-        print('\nAparelho criado com sucesso!')
-        return True

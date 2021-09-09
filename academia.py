@@ -102,3 +102,90 @@ class Academia:
         self.aparelhos.append(a)                                                                             #Adiciona o aparelho instanciado na lista de aparelhos
         print("\nAparelho cadastrado com sucesso!")                                                          #Imprime mensagem "Aparelho cadastrado com sucesso!"
         return a                                                                                             #Retorna o aparelho instanciado
+    
+    def imprimeListaAlunos(self):
+        for index,aluno in enumerate(self.listaAlunos):
+            print(f'{index+1}-{aluno.nome}')
+
+    def imprimeListaProfessores(self):
+        for index,professor in enumerate(self.listaProfessores):
+            print(f'{index+1}-{professor.nome}')
+            
+    def editaAluno(nome):
+        for i in self.listaAlunos:
+            if i.nome == nome
+                while True:
+                    menuAluno = input('''\nDigite 1 para editar o nome do aluno
+Digite 2 para editar idade
+Digite 3 para editar cpf
+Digite 4 para editar a matriz de horários
+Digite 5 para editar peso
+Digite 6 para editar altura
+Digite 7 para editar objetivo
+Digite 8 para sair: ''')
+            
+                    if menuAluno == '1':
+                        i.nome = input('Digite o novo nome do aluno: ')
+                    elif  menuAluno == '2':
+                        i.idade = input('Digite a nova idade do aluno: ')
+                    elif  menuAluno == '3':
+                        i.cpf = input('Digite o novo cpf do aluno: ')
+                    elif  menuAluno == '4':
+                        print("\nInforme 1 para o dia e turno que deseja frequentar a academia e 0 para os dias que não deseja: ") #Imprime mensagem para indicar como preenche os horários
+                        for i in range(6):                                                                                  #Repete 6 vezes linha 59-63
+                            for j in range(3):                                                                              #Repete 3 vezes linha 60-63 
+                                i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))            #Entrada de 0 ou 1 pelo usuário
+                                while matrizHorarios[i][j] != 0 and matrizHorarios[i][j] != 1:                              #Enquanto a entrada for diferente de 0 e 1 repete linha 62-63
+                                    print('\nNúemro inválido, utilize apenas 0 ou 1')                                       #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
+                                    i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))        #Entrada de 0 ou 1 pelo usuário
+                                    #####Não esquecer de fazer validação
+
+                    elif  menuAluno == '5':
+                        i.peso = input('Digite o novo peso do aluno: ')
+                    elif  menuAluno == '6':
+                        i.altura = input('Digite a nova altura do aluno: ')
+                    elif  menuAluno == '7':
+                        i.objetivo = input('Digite o novo peso do aluno: ')
+                    else:
+                        break
+            break
+        
+        def editaProfessor(nome):
+        for i in self.listaProfessores:
+            if i.nome == nome
+                while True:
+                    menuProfessor = input('''\nDigite 1 para editar o nome do aluno
+Digite 2 para editar idade
+Digite 3 para editar cpf
+Digite 4 para editar a matriz de horários
+Digite 5 para editar número CTPS
+Digite 6 para sair: ''')
+            
+                    if menuProfessor == '1':
+                        i.nome = input('Digite o novo nome do professor: ')
+                    elif  menuProfessor == '2':
+                        i.idade = input('Digite a nova idade do professor: ')
+                    elif  menuProfessor == '3':
+                        i.cpf = input('Digite o novo cpf do professor: ')
+                    elif  menuProfessor == '4':
+                        print("\nInforme 1 para o dia e turno que deseja frequentar a academia e 0 para os dias que não deseja: ") #Imprime mensagem para indicar como preenche os horários
+                        for i in range(6):                                                                                  #Repete 6 vezes linha 59-63
+                            for j in range(3):                                                                              #Repete 3 vezes linha 60-63 
+                                i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))            #Entrada de 0 ou 1 pelo usuário
+                                while matrizHorarios[i][j] != 0 and matrizHorarios[i][j] != 1:                              #Enquanto a entrada for diferente de 0 e 1 repete linha 62-63
+                                    print('\nNúemro inválido, utilize apenas 0 ou 1')                                       #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
+                                    i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))        #Entrada de 0 ou 1 pelo usuário
+                                    #####Não esquecer de fazer validação
+
+                    elif  menuProfessor == '5':
+                        i.peso = input('Digite o novo número de CTPS do professor: ')
+                    else:
+                        break
+            break
+        
+        def deletaAluno(nome):
+            pass
+        
+        def deletaProfessor(nome):
+            pass
+    

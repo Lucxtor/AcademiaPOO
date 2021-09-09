@@ -25,9 +25,10 @@ Digite 3 para cadastrar uma pessoa
 Digite 4 para editar uma pessoa
 Digite 5 para excluir uma pessoa
 Digite 6 para cadastrar um aparelho
-Digite 7 para encerrar o programa: ''')                                                                     #Entrada da variável menu
+Digite 7 para consultar uma pessoa
+Digite 8 para encerrar o programa: ''')                                                                     #Entrada da variável menu
 
-    while menu not in '1 2 3 4 5 6 7':                                                                      #Enquanto o número digitado pelo usuário não for uma das opções possíveis, repete linha 31-38
+    while menu not in '1 2 3 4 5 6 7 8':                                                                      #Enquanto o número digitado pelo usuário não for uma das opções possíveis, repete linha 31-38
         print(f'\nNúmero inválido, tente novamente:')                                                       #Caso entre no laço, imprime a mensagem "Número inválido, tente novamente:"
         menu = input('''\nDigite 1 para entrar na academia                                                  
 Digite 2 para sair da academia
@@ -35,7 +36,8 @@ Digite 3 para cadastrar uma pessoa
 Digite 4 para editar uma pessoa
 Digite 5 para excluir uma pessoa
 Digite 6 para cadastrar um aparelho
-Digite 7 para encerrar o programa: ''')                                                                     #Nova entrada da variável menu
+Digite 7 para consultar uma pessoa
+Digite 8 para encerrar o programa: ''')                                                                     #Nova entrada da variável menu
     
     
     if menu == '1':                                                                                         #Se a opção escolhida for = 1, tenta entrar na academia
@@ -76,16 +78,35 @@ Digite 7 para encerrar o programa: ''')                                         
         elif menuCadastro == '2':                                                                           #Se a opção 2 for escolhida, cadastra professor       
             numeroCTPS = input('Digite o número da sua carteira de trabalho: ')                             #Entrada de número CTPS digitada pelo usuário
             auxProfessor = academia.cadastrarProfessor(nome, idade, cpf, matrizHorarios, numeroCTPS)        #Variável usada para invocar o método de cadastro de professor
+    
+    elif menu == '4':
+        menuCadastroEdicao = input('\nDigite 1 para editar um aluno\nDigite 2 para editar um professor: ')
         
+        while menuCadastroEdicao != '1' and menuCadastroEdicao != '2':                                            #Enquanto a entrada =! de 1 ou 2 repete linha 85-86
+            print('\nNúemro inválido, utilize apenas 1 ou 2.Tente novamente')                               #Imprime mensagem "Núemro inválido, utilize apenas 1 ou 2"
+            menuCadastroEdicao = input('''Digite 1 para editar aluno \nDigite 2 para editar professor: ''') #Nova entrada para a variável menuCadastro
+        
+        if menuCadastroEdicao == '1':
+            academia.imprimeListaAlunos()
+            escolheAluno = input('\nDigite o nome do aluno em que deseja-se fazer alterações: ')
+            academia.editaAluno(escolheAluno)
+        else:
+            academia.imprimeListaProfessores()
+            escolheProfessor = input('\nDigite o nome do professor em que deseja-se fazer alterações: ')
+            academia.editaProfessor(escolheProfessor)
+            
+    elif menu == '5':
+        pass
+    
     elif menu == '6':                                                                                                              #Se a opção 6 for escolhida, cadastra Aaparelho
         nomeAparelho = input('\nDigite o nome do aparelho: ').capitalize()                                                         #Entrada de nome do aparelho digitada pelo usuário
         restricaoIdade = bool(input('Digite 0 se o aparelho puder ser usado por menores de 16 anos ou 1 se não puder: '))          #Entrada de 0 ou 1 para indicar se o aparelho tem restrição de idade
         while restricaoIdade != 0 and restricaoIdade != 1:                                                                         #Equanto entrada =! de 0 ou 1 repete linha 84-85
-                print('\nNúemro inválido, utilize apenas 0 ou 1')                                                                  #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
-                restricaoIdade = bool(input('Digite 0 se o aparelho puder ser usado por menores de 16 anos ou 1 se não puder: '))  #Nova entrada de 0 ou 1 para indicar se o aparelho tem restrição de idade
+            print('\nNúemro inválido, utilize apenas 0 ou 1')                                                                  #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
+            restricaoIdade = bool(input('Digite 0 se o aparelho puder ser usado por menores de 16 anos ou 1 se não puder: '))  #Nova entrada de 0 ou 1 para indicar se o aparelho tem restrição de idade
                 
         auxAparelho = academia.cadastrarAparelho(nomeAparelho,restricaoIdade)                               #Variável usada para invocar método de cadastro de aparelho
         
-    elif menu == '7':                                                                                       #Se a opção for 7, encerra o programa
+    elif menu == '8':                                                                                       #Se a opção for 8, encerra o programa
         print('\nFIM !')                                                                                    #Imprime mensagem de encerramento do programa 
         break                                                                                               #Quebra do laço do programa

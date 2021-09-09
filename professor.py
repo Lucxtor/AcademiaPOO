@@ -1,4 +1,5 @@
 from pessoa import Pessoa
+from lib import diaSemana
 
 class Professor(Pessoa):
     def __init__(self, nome, idade, CPF, horario, numeroCarteira):
@@ -17,7 +18,7 @@ class Professor(Pessoa):
         for i in range(6):
             if i > 0:
                 print('')
-            print(self.diaSemana[i], end='  ')
+            print(diaSemana[i], end='  ')
             for j in range(3):
                 print(self.horario[i][j], end=' ')
         print()

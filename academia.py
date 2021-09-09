@@ -1,7 +1,7 @@
 from aluno import Aluno
 from professor import Professor
 from aparelho import Aparelho
-
+from lib import validaHorarioAluno, lerMatrizHorarios
 
 class Academia:
 
@@ -14,7 +14,6 @@ class Academia:
         self.listaPessoas = []
         self.alunosDentro = 0
         self.professoresDentro = 0
-        self.cadastroAluno = True
         self.qtdeProfsDiaTurno = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.qtdeAlunosDiaTurno = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
@@ -53,18 +52,7 @@ class Academia:
                     print(f'Bom descanso prof. {nome}!')                                                     #Imprime mensagem "Bom descanso {nome}!"
 
     def cadastrarAluno(self, nome, idade, CPF, horario, peso, altura, objetivo):                             #Método de cadastro de aluno, recebendo como parâmetros nome, idade, CPF, horario, peso, altura, objetivo
-        maxAparelhos = 0                                                                                     #Variável usada pra verificar quantos aparelhos o aluno pode usar 
-        cadastroAluno = True                                                                                 #Por padrão, o cadastro é válido
-        for i in self.aparelhos:                                                                             #Repetir(tamanho da lista de aparelhos)vezes linha 59-61
-            maxAparelhos += 1                                                                                #Adiciona 1 a variável maxAparelhos
-            if idade < 16 and i.restricaoIdade:                                                              #Verifica se a idade do aluno é menor do q 16 e se o aparelho tem restrição de idade
-                maxAparelhos -= 1                                                                            #Decrementa em 1 a variável maxAparelhos
-        for i in range(6):                                                                                   #Repete 6 vezes linha 63-66
-            for j in range(3):                                                                               #Repete 3 vezes linha 64-66
-                if horario[i][j] + self.qtdeAlunosDiaTurno[i][j] > self.qtdeProfsDiaTurno[i][j] * 8 or horario[i][j] + self.qtdeAlunosDiaTurno[i][j] > maxAparelhos or horario[i][j] + self.qtdeAlunosDiaTurno[i][j] > self.capacidadeMaximaLocal:
-                                                                                                             #Verifica se o horário escolhido pelo aluno é válido, comparando com o número de profs em cada horário, número de aparelhos e capacidade do local           
-                    cadastroAluno = False                                                                    #Se for inválido, torna o cadastro inválido
-
+        cadastroAluno = validaHorarioAluno(self.aparelhos, idade, horario, self.qtdeAlunosDiaTurno, self.qtdeProfsDiaTurno, self.capacidadeMaximaLocal)                                                                 #Chama função para verificar se o aluno pode usar está grade de horarios
         if cadastroAluno:                                                                                    #Se passar pelas verificações
             for i in range(6):                                                                               #Repete 6 vezes linha 70-86
                 for j in range(3):                                                                           #Repete 3 vezes linha 71-86
@@ -111,9 +99,9 @@ class Academia:
         for index,professor in enumerate(self.listaProfessores):
             print(f'{index+1}-{professor.nome}')
             
-    def editaAluno(nome):
+    def editaAluno(self, nome):
         for i in self.listaAlunos:
-            if i.nome == nome
+            if i.nome == nome:
                 while True:
                     menuAluno = input('''\nDigite 1 para editar o nome do aluno
 Digite 2 para editar idade
@@ -125,34 +113,36 @@ Digite 7 para editar objetivo
 Digite 8 para sair: ''')
             
                     if menuAluno == '1':
-                        i.nome = input('Digite o novo nome do aluno: ')
+                        i.nome = input('Digite o novo nome do aluno: ').capitalize()
                     elif  menuAluno == '2':
                         i.idade = input('Digite a nova idade do aluno: ')
+                        #Validar idade maior que 0
                     elif  menuAluno == '3':
                         i.cpf = input('Digite o novo cpf do aluno: ')
                     elif  menuAluno == '4':
-                        print("\nInforme 1 para o dia e turno que deseja frequentar a academia e 0 para os dias que não deseja: ") #Imprime mensagem para indicar como preenche os horários
-                        for i in range(6):                                                                                  #Repete 6 vezes linha 59-63
-                            for j in range(3):                                                                              #Repete 3 vezes linha 60-63 
-                                i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))            #Entrada de 0 ou 1 pelo usuário
-                                while matrizHorarios[i][j] != 0 and matrizHorarios[i][j] != 1:                              #Enquanto a entrada for diferente de 0 e 1 repete linha 62-63
-                                    print('\nNúemro inválido, utilize apenas 0 ou 1')                                       #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
-                                    i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))        #Entrada de 0 ou 1 pelo usuário
-                                    #####Não esquecer de fazer validação
-
+                        for i in range(6):  # Repete 6 vezes linha 70-86
+                            for j in range(3):  # Repete 3 vezes linha 71-86
+                                self.qtdeAlunosDiaTurno[i][j] -= i.horario[i][j]  # remove os antigos horários escolhidos pelo aluno na matriz de horários de alunos
+                        matrizHorarios = lerMatrizHorarios()
+                        atualizaAluno = validaHorarioAluno(self.aparelhos, i.idade, i.horario, self.qtdeAlunosDiaTurno, self.qtdeProfsDiaTurno, self.capacidadeMaximaLocal)
+                        if atualizaAluno:
+                            i.horario = matrizHorarios
                     elif  menuAluno == '5':
                         i.peso = input('Digite o novo peso do aluno: ')
+                        #Validar maior que 0
                     elif  menuAluno == '6':
                         i.altura = input('Digite a nova altura do aluno: ')
+                        #Validar maior que 0
                     elif  menuAluno == '7':
                         i.objetivo = input('Digite o novo peso do aluno: ')
                     else:
                         break
+                    i.imprimir()
             break
         
-        def editaProfessor(nome):
+    def editaProfessor(self, nome):
         for i in self.listaProfessores:
-            if i.nome == nome
+            if i.nome == nome:
                 while True:
                     menuProfessor = input('''\nDigite 1 para editar o nome do aluno
 Digite 2 para editar idade
@@ -160,32 +150,52 @@ Digite 3 para editar cpf
 Digite 4 para editar a matriz de horários
 Digite 5 para editar número CTPS
 Digite 6 para sair: ''')
-            
-                    if menuProfessor == '1':
-                        i.nome = input('Digite o novo nome do professor: ')
-                    elif  menuProfessor == '2':
-                        i.idade = input('Digite a nova idade do professor: ')
-                    elif  menuProfessor == '3':
-                        i.cpf = input('Digite o novo cpf do professor: ')
-                    elif  menuProfessor == '4':
-                        print("\nInforme 1 para o dia e turno que deseja frequentar a academia e 0 para os dias que não deseja: ") #Imprime mensagem para indicar como preenche os horários
-                        for i in range(6):                                                                                  #Repete 6 vezes linha 59-63
-                            for j in range(3):                                                                              #Repete 3 vezes linha 60-63 
-                                i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))            #Entrada de 0 ou 1 pelo usuário
-                                while matrizHorarios[i][j] != 0 and matrizHorarios[i][j] != 1:                              #Enquanto a entrada for diferente de 0 e 1 repete linha 62-63
-                                    print('\nNúemro inválido, utilize apenas 0 ou 1')                                       #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
-                                    i.matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))        #Entrada de 0 ou 1 pelo usuário
-                                    #####Não esquecer de fazer validação
 
-                    elif  menuProfessor == '5':
-                        i.peso = input('Digite o novo número de CTPS do professor: ')
+                    if menuProfessor == '1':
+                        i.nome = input('Digite o novo nome do professor: ').capitalize()
+                    elif menuProfessor == '2':
+                        i.idade = input('Digite a nova idade do professor: ')
+                        #Validar maior que 0
+                    elif menuProfessor == '3':
+                        i.cpf = input('Digite o novo cpf do professor: ')
+                    elif menuProfessor == '4':
+                        matrizHorarios = lerMatrizHorarios()
+                        i.horario = matrizHorarios
+                    elif menuProfessor == '5':
+                        i.numeroCarteira = input('Digite o novo número de CTPS do professor: ')
                     else:
                         break
+                    i.imprimir()
             break
-        
-        def deletaAluno(nome):
-            pass
-        
-        def deletaProfessor(nome):
-            pass
-    
+
+    def removePessoa(self, nome):
+        for pessoa in self.listaPessoas:
+            if pessoa['Nome'] == nome:
+                if pessoa['tipoPessoa'] == 'Aluno':
+                    for aluno in self.listaAlunos:
+                        if aluno.nome == nome:
+                            for i in range(6):  # Repete 6 vezes linha 70-86
+                                for j in range(3):  # Repete 3 vezes linha 71-86
+                                    self.qtdeAlunosDiaTurno[i][j] -= aluno.horario[i][j]  # Remove os horários escolhidos anteriormente pelo aluno na matriz de horários de alunos
+                            self.listaAlunos.remove(aluno)
+                else:
+                    for professor in self.listaProfessores:
+                        if professor.nome == nome:
+                            for i in range(6):  # Repete 6 vezes linha 70-86
+                                for j in range(3):  # Repete 3 vezes linha 71-86
+                                    self.qtdeProfsDiaTurno[i][j] -= professor.horario[i][j]  # Remove os horários escolhidos anteriormente pelo professor na matriz de horários de professores
+                            self.listaProfessores.remove(professor)
+                self.listaPessoas.remove(pessoa)
+
+    def consultaPessoa(self, nome):
+        for pessoa in self.listaPessoas:
+            if pessoa['Nome'] == nome:
+                if pessoa['tipoPessoa'] == 'Aluno':
+                    for aluno in self.listaAlunos:
+                        if aluno.nome == nome:
+                            aluno.imprimir()
+                else:
+                    for professor in self.listaProfessores:
+                        if professor.nome == nome:
+                            professor.imprimir()
+        #Retornar caso não encontre nenhuma pessoa cadastrada

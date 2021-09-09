@@ -3,16 +3,17 @@ from aparelho import Aparelho
 from academia import Academia
 from pessoa import Pessoa
 from professor import Professor
+from lib import lerMatrizHorarios
 
-listaTurnos = ['Manhã', 'Tarde', 'Noite']
-listaDiasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado']
-matrizHorarios = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
-academia = Academia('Academia do Luis e Olavo',500)
-academia.cadastrarAparelho("supino", True)
-academia.cadastrarAparelho("Cross-over", False)
-academia.cadastrarProfessor("Olavo", 19, 123, [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1]], 123)
-academia.cadastrarAluno("Luis", 19, 321, [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [0, 0, 0]], 80, 1.8, "Fica shapado")
-academia.cadastrarAluno("Pedro", 15, 321, [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [1, 1, 1]], 80, 1.8, "Fica shapado")
+academia = Academia('Academia do Luis e Olavo', 500)
+def cadastrarDadosBase():
+    academia.cadastrarAparelho("supino", True)
+    academia.cadastrarAparelho("Cross-over", False)
+    academia.cadastrarProfessor("Olavo", 19, 123, [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1]], 123)
+    academia.cadastrarAluno("Luis", 19, 321, [[1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [1, 1, 1], [0, 0, 0]], 80, 1.8, "Fica shapado")
+    academia.cadastrarAluno("Pedro", 15, 321, [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [1, 1, 1]], 80, 1.8, "Fica shapado")
+
+cadastrarDadosBase()
 
 print("-="*50)
 print(" "*(50-(round(len(academia.nome)/2))),academia.nome)
@@ -23,7 +24,7 @@ while True:                                                                     
 Digite 2 para sair da academia
 Digite 3 para cadastrar uma pessoa
 Digite 4 para editar uma pessoa
-Digite 5 para excluir uma pessoa
+Digite 5 para remover uma pessoa
 Digite 6 para cadastrar um aparelho
 Digite 7 para consultar uma pessoa
 Digite 8 para encerrar o programa: ''')                                                                     #Entrada da variável menu
@@ -34,7 +35,7 @@ Digite 8 para encerrar o programa: ''')                                         
 Digite 2 para sair da academia
 Digite 3 para cadastrar uma pessoa
 Digite 4 para editar uma pessoa
-Digite 5 para excluir uma pessoa
+Digite 5 para remover uma pessoa
 Digite 6 para cadastrar um aparelho
 Digite 7 para consultar uma pessoa
 Digite 8 para encerrar o programa: ''')                                                                     #Nova entrada da variável menu
@@ -56,13 +57,7 @@ Digite 8 para encerrar o programa: ''')                                         
             print('\nNúmero inválido, a idade precisa ser maior do que 0')                                  #Imprime mensagem "Número inválido, a idade precisa ser maior do que 0"
             idade = int(input('Digite a sua idade[Deve ser um número inteiro > 0]: '))                      #Entrada de idade, número inteiro digitado pelo usuário
         
-        print("\nInforme 1 para o dia e turno que deseja frequentar a academia e 0 para os dias que não deseja: ") #Imprime mensagem para indicar como preenche os horários
-        for i in range(6):                                                                                  #Repete 6 vezes linha 59-63
-            for j in range(3):                                                                              #Repete 3 vezes linha 60-63 
-                matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))            #Entrada de 0 ou 1 pelo usuário
-                while matrizHorarios[i][j] != 0 and matrizHorarios[i][j] != 1:                              #Enquanto a entrada for diferente de 0 e 1 repete linha 62-63
-                    print('\nNúemro inválido, utilize apenas 0 ou 1')                                       #Imprime mensagem "Núemro inválido, utilize apenas 0 ou 1"
-                    matrizHorarios[i][j] = int(input(f'{listaDiasSemana[i]} de {listaTurnos[j]}: '))        #Entrada de 0 ou 1 pelo usuário
+        matrizHorarios = lerMatrizHorarios()
                     
         menuCadastro = input('''Digite 1 para cadastrar aluno \nDigite 2 para cadastrar professor: ''')     #Entrada para a variável menuCadastro
         while menuCadastro != '1' and menuCadastro != '2':                                                  #Enquanto a entrada =! de 1 ou 2 repete linha 67-68
@@ -96,7 +91,8 @@ Digite 8 para encerrar o programa: ''')                                         
             academia.editaProfessor(escolheProfessor)
             
     elif menu == '5':
-        pass
+        nome = input("\nDigite o nome da pessoa que deseja remover: ")
+        academia.removePessoa(nome)
     
     elif menu == '6':                                                                                                              #Se a opção 6 for escolhida, cadastra Aaparelho
         nomeAparelho = input('\nDigite o nome do aparelho: ').capitalize()                                                         #Entrada de nome do aparelho digitada pelo usuário
@@ -106,7 +102,25 @@ Digite 8 para encerrar o programa: ''')                                         
             restricaoIdade = bool(input('Digite 0 se o aparelho puder ser usado por menores de 16 anos ou 1 se não puder: '))  #Nova entrada de 0 ou 1 para indicar se o aparelho tem restrição de idade
                 
         auxAparelho = academia.cadastrarAparelho(nomeAparelho,restricaoIdade)                               #Variável usada para invocar método de cadastro de aparelho
-        
+
+    elif menu == '7':
+        while True:
+            menuConsulta = input('''\nDigite 1 para exibir a lista de alunos                                                               
+Digite 2 para exibir a lista de professores
+Digite 3 para buscar pelo nome
+Digite 4 para sair: ''')
+            #Validar opções do menu
+
+            if menuConsulta == '1':
+                academia.imprimeListaAlunos()
+            elif menuConsulta == '2':
+                academia.imprimeListaProfessores()
+            elif menuConsulta == '3':
+                nome = input("Digite o nome da pessoa que deseja buscar: ")
+                academia.consultaPessoa(nome)
+            else:
+                break
+
     elif menu == '8':                                                                                       #Se a opção for 8, encerra o programa
         print('\nFIM !')                                                                                    #Imprime mensagem de encerramento do programa 
         break                                                                                               #Quebra do laço do programa

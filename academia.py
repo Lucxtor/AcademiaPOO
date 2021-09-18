@@ -230,17 +230,19 @@ Digite 6 para sair: ''').strip()                                                
                 break
 
     def consultaPessoa(self, nome):                                 #Métoda para consultar pessoa, recebendo o nome como parâmentro
-        for index, pessoa in enumerate self.listaPessoas:           #Percorre lista de pessoas
+        for index, pessoa in enumerate(self.listaPessoas):           #Percorre lista de pessoas
             if pessoa['Nome'] == nome:                              #Se o nome digitado for igua ao nome do cadastro
                 if pessoa['tipoPessoa'] == 'Aluno':                 #Se for aluno
                     for aluno in self.listaAlunos:                  #Percorre lista de alunos
                         if aluno.nome == nome:                      #Se o nome digitado for igual ao cadastrado
                             aluno.imprimir()                        #Invoca o método para imprimir todas as informações do aluno
+                            break                                   #"Quebra" o laço de repetição da linha 233
                 else:                                               #Se for professor
                     for professor in self.listaProfessores:         #Percorre lista de professores  
                         if professor.nome == nome:                  #Se o nome digitado for igual ao cadastrado
                             professor.imprimir()                    #Invoca o método para imprimir todas as informações do professor
-            elif index == len(self.listaPessoas)-1                  #Caso já esteja na última posição da lista, e não tenha encontrado a pessoa
+                            break                                   #"Quebra" o laço de repetição da linha 233
+            elif index == len(self.listaPessoas)-1:                 #Caso já esteja na última posição da lista, e não tenha encontrado a pessoa
                 print('\nNome digitado não encontrado')             #Imprime mensagem de erro
                             
     def cadastrarAparelho(self, nomeAparelho, restricaoIdade):          #Método de cadastro de aparelho, recebendo como parâmetro o nome do aparelho e restrição de idade

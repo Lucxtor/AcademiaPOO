@@ -14,6 +14,7 @@ def validaHorarioAluno(aparelhos, idade, horario, qtdeAlunosDiaTurno, qtdeProfsD
             if horario[i][j] + qtdeAlunosDiaTurno[i][j] > qtdeProfsDiaTurno[i][j] * 8 or horario[i][j] + qtdeAlunosDiaTurno[i][j] > maxAparelhos or horario[i][j] + qtdeAlunosDiaTurno[i][j] > capacidadeMaximaLocal:
             #Verifica se o horário escolhido pelo aluno é válido, comparando com o número de profs em cada horário, número de aparelhos e capacidade do local
                 cadastroAluno = False                                                                    #Se for inválido, torna o cadastro inválido
+                return cadastroAluno                                                                     #Retorna se o cadastro é inválido
     return cadastroAluno                                                                                 #Retorna se o cadastro é válido ou não
 
 def lerMatrizHorarios():
